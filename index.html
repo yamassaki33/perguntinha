@@ -2,86 +2,105 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Questionário Honesto</title>
+  <title>Profissão dos Sonhos</title>
   <style>
     body {
+      margin: 0;
+      padding: 0;
       background-color: black;
       color: white;
       font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
       height: 100vh;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      text-align: center;
     }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 10px;
-      border: none;
+
+    h1 {
+      font-size: 2em;
+      color: #00ffff;
+      margin-bottom: 40px;
+    }
+
+    .option {
+      font-size: 1.5em;
+      margin: 20px;
       cursor: pointer;
-      margin-top: 20px;
-      background-color: blue;
-      color: white;
-    }
-    #nao {
       position: absolute;
+      transition: all 0.3s ease;
+    }
+
+    #extra-option {
+      margin-top: 30px;
+      color: #ffcc00;
+      font-size: 1.2em;
+      display: none;
+      cursor: pointer;
+    }
+
+    #final-message {
+      margin-top: 20px;
+      font-size: 1.5em;
+      color: #ff66cc;
+      display: none;
     }
   </style>
 </head>
 <body>
 
-  <div id="tela1">
-    <h1>Responda a próxima página com honestidade</h1>
-    <button onclick="irParaPergunta()">Sim</button>
-  </div>
+  <h1>Qual a sua profissão dos sonhos?</h1>
 
-  <div id="tela2" style="display:none;">
-    <h1>Você se considera um japonês homossexual?</h1>
-    <button id="nao" onmouseover="moverBotao()" style="top:50%; left:50%;">Não</button>
-    <button id="simFinal" onclick="mostrarFinal()" style="display:none;">Sim</button>
-  </div>
+  <div class="option" id="cineasta">Cineasta</div>
+  <div class="option" id="advogada">Advogada</div>
 
-  <div id="tela3" style="display:none;">
-    <h1>Eu sabia desde o começo</h1>
-  </div>
+  <div id="extra-option">Nenhuma das opções, queria ganhar dinheiro tirando sonecas</div>
+  <div id="final-message">Eu sabia, sua dorminhoca.</div>
 
   <script>
-    let tentativas = 0;
-
-    function irParaPergunta() {
-      document.getElementById('tela1').style.display = 'none';
-      document.getElementById('tela2').style.display = 'block';
-      posicionarBotaoAleatoriamente();
+    function moveRandomly(element) {
+      const x = Math.random() * (window.innerWidth - 150);
+      const y = Math.random() * (window.innerHeight - 50);
+      element.style.left = `${x}px`;
+      element.style.top = `${y}px`;
     }
 
-    function moverBotao() {
-      if (tentativas < 8) {
-        posicionarBotaoAleatoriamente();
-        tentativas++;
-        if (tentativas === 8) {
-          document.getElementById('nao').style.display = 'none';
-          document.getElementById('simFinal').style.display = 'inline-block';
-        }
+    const cineasta = document.getElementById('cineasta');
+    const advogada = document.getElementById('advogada');
+    const extraOption = document.getElementById('extra-option');
+    const finalMessage = document.getElementById('final-message');
+
+    let cineastaHover = 0;
+    let advogadaHover = 0;
+
+    cineasta.addEventListener('mouseenter', () => {
+      cineastaHover++;
+      if (cineastaHover <= 3) {
+        moveRandomly(cineasta);
+      }
+      checkShowExtra();
+    });
+
+    advogada.addEventListener('mouseenter', () => {
+      advogadaHover++;
+      if (advogadaHover <= 3) {
+        moveRandomly(advogada);
+      }
+      checkShowExtra();
+    });
+
+    function checkShowExtra() {
+      if (cineastaHover >= 3 && advogadaHover >= 3) {
+        extraOption.style.display = 'block';
       }
     }
 
-    function posicionarBotaoAleatoriamente() {
-      const botao = document.getElementById('nao');
-      const larguraJanela = window.innerWidth - 100;
-      const alturaJanela = window.innerHeight - 50;
-      const novaPosX = Math.random() * larguraJanela;
-      const novaPosY = Math.random() * alturaJanela;
-      botao.style.left = novaPosX + 'px';
-      botao.style.top = novaPosY + 'px';
-    }
-
-    function mostrarFinal() {
-      document.getElementById('tela2').style.display = 'none';
-      document.getElementById('tela3').style.display = 'block';
-    }
+    extraOption.addEventListener('click', () => {
+      finalMessage.style.display = 'block';
+    });
   </script>
 </body>
 </html>
+
