@@ -25,12 +25,25 @@
       margin-bottom: 40px;
     }
 
+    .options-container {
+      display: flex;
+      gap: 50px;
+      position: relative;
+    }
+
     .option {
       font-size: 1.5em;
-      margin: 20px;
       cursor: pointer;
-      position: absolute;
       transition: all 0.3s ease;
+      position: relative;
+    }
+
+    #cineasta {
+      color: #ff4444;
+    }
+
+    #advogada {
+      color: #44ff44;
     }
 
     #extra-option {
@@ -53,8 +66,10 @@
 
   <h1>Qual a sua profissão dos sonhos?</h1>
 
-  <div class="option" id="cineasta">Cineasta</div>
-  <div class="option" id="advogada">Advogada</div>
+  <div class="options-container">
+    <div class="option" id="cineasta">Cineasta</div>
+    <div class="option" id="advogada">Advogada</div>
+  </div>
 
   <div id="extra-option">Nenhuma das opções, queria ganhar dinheiro tirando sonecas</div>
   <div id="final-message">Eu sabia, sua dorminhoca.</div>
@@ -62,7 +77,8 @@
   <script>
     function moveRandomly(element) {
       const x = Math.random() * (window.innerWidth - 150);
-      const y = Math.random() * (window.innerHeight - 50);
+      const y = Math.random() * (window.innerHeight - 100);
+      element.style.position = 'absolute';
       element.style.left = `${x}px`;
       element.style.top = `${y}px`;
     }
@@ -80,7 +96,10 @@
       if (cineastaHover <= 3) {
         moveRandomly(cineasta);
       }
-      checkShowExtra();
+      if (cineastaHover === 3) {
+        cineasta.style.display = 'none';
+        checkShowExtra();
+      }
     });
 
     advogada.addEventListener('mouseenter', () => {
@@ -88,7 +107,10 @@
       if (advogadaHover <= 3) {
         moveRandomly(advogada);
       }
-      checkShowExtra();
+      if (advogadaHover === 3) {
+        advogada.style.display = 'none';
+        checkShowExtra();
+      }
     });
 
     function checkShowExtra() {
@@ -103,4 +125,3 @@
   </script>
 </body>
 </html>
-
