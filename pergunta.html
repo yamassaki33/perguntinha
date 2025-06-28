@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Questionário Honesto</title>
+  <style>
+    body {
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/0/0b/Dalai_Lama_1430_Luca_Galuzzi_2007crop.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: brightness(0.5); /* escurece um pouco o fundo pra o texto aparecer */
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+      background-color: blue;
+      color: white;
+    }
+    #nao {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="tela1">
+    <h1>Responda a próxima página com honestidade</h1>
+    <button onclick="irParaPergunta()">Ok</button>
+  </div>
+
+  <div id="tela2" style="display:none;">
+    <h1>Você se considera um japonês homossexual?</h1>
+    <button id="nao" onmouseover="moverBotao()" style="top:50%; left:50%;">Não</button>
+    <button id="simFinal" onclick="mostrarFinal()" style="display:none;">Sim</button>
+  </div>
+
+  <div id="tela3" style="display:none;">
+    <h1>Eu sabia desde o começo</h1>
+  </div>
+
+  <script>
+    let tentativas = 0;
+
+    function irParaPergunta() {
+      document.getElementById('tela1').style.display = 'none';
+      document.getElementById('tela2').style.display = 'block';
+      posicionarBotaoAleatoriamente();
+    }
+
+    function moverBotao() {
+      if (tentativas < 8) {
+        posicionarBotaoAleatoriamente();
+        tentativas++;
+        if (tentativas === 8) {
+          document.getElementById('nao').style.display = 'none';
+          document.getElementById('simFinal').style.display = 'inline-block';
+        }
+      }
+    }
+
+    function posicionarBotaoAleatoriamente() {
+      const botao = document.getElementById('nao');
+      const larguraJanela = window.innerWidth - 100;
+      const alturaJanela = window.innerHeight - 50;
+      const novaPosX = Math.random() * larguraJanela;
+      const novaPosY = Math.random() * alturaJanela;
+      botao.style.left = novaPosX + 'px';
+      botao.style.top = novaPosY + 'px';
+    }
+
+    function mostrarFinal() {
+      document.getElementById('tela2').style.display = 'none';
+      document.getElementById('tela3').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
