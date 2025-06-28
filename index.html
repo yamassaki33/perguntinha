@@ -23,35 +23,47 @@
       font-size: 2em;
       color: #00ffff;
       margin-bottom: 40px;
+      font-weight: bold;
     }
 
     .options-container {
       display: flex;
-      gap: 50px;
+      gap: 80px;
+      margin-bottom: 30px;
       position: relative;
+      z-index: 1;
     }
 
     .option {
       font-size: 1.5em;
       cursor: pointer;
       transition: all 0.3s ease;
-      position: relative;
+      position: absolute;
+      font-weight: bold;
+      white-space: nowrap;
     }
 
     #cineasta {
       color: #ff4444;
+      left: 35%;
+      top: 50%;
     }
 
     #advogada {
       color: #44ff44;
+      left: 55%;
+      top: 50%;
     }
 
     #extra-option {
-      margin-top: 30px;
+      margin-top: 20px;
       color: #ffcc00;
       font-size: 1.2em;
       display: none;
       cursor: pointer;
+      font-weight: bold;
+      position: relative;
+      z-index: 2;
     }
 
     #final-message {
@@ -59,6 +71,9 @@
       font-size: 1.5em;
       color: #ff66cc;
       display: none;
+      font-weight: bold;
+      position: relative;
+      z-index: 2;
     }
   </style>
 </head>
@@ -75,10 +90,17 @@
   <div id="final-message">Eu sabia, sua dorminhoca.</div>
 
   <script>
-    function moveRandomly(element) {
-      const x = Math.random() * (window.innerWidth - 150);
-      const y = Math.random() * (window.innerHeight - 100);
-      element.style.position = 'absolute';
+    function moveSafely(element) {
+      const elemWidth = element.offsetWidth;
+      const elemHeight = element.offsetHeight;
+      const padding = 20;
+
+      const maxX = window.innerWidth - elemWidth - padding;
+      const maxY = window.innerHeight - elemHeight - padding;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
       element.style.left = `${x}px`;
       element.style.top = `${y}px`;
     }
@@ -94,7 +116,7 @@
     cineasta.addEventListener('mouseenter', () => {
       cineastaHover++;
       if (cineastaHover <= 3) {
-        moveRandomly(cineasta);
+        moveSafely(cineasta);
       }
       if (cineastaHover === 3) {
         cineasta.style.display = 'none';
@@ -105,7 +127,7 @@
     advogada.addEventListener('mouseenter', () => {
       advogadaHover++;
       if (advogadaHover <= 3) {
-        moveRandomly(advogada);
+        moveSafely(advogada);
       }
       if (advogadaHover === 3) {
         advogada.style.display = 'none';
