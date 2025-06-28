@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title>Profissão dos Sonhos</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -26,26 +30,18 @@
       font-weight: bold;
     }
 
-    .options-container {
-      display: flex;
-      gap: 80px;
-      margin-bottom: 30px;
-      position: relative;
-      z-index: 1;
-    }
-
     .option {
       font-size: 1.5em;
       cursor: pointer;
-      transition: all 0.3s ease;
-      position: absolute;
       font-weight: bold;
+      position: absolute;
       white-space: nowrap;
+      transition: all 0.3s ease;
     }
 
     #cineasta {
       color: #ff4444;
-      left: 35%;
+      left: 40%;
       top: 50%;
     }
 
@@ -81,28 +77,25 @@
 
   <h1>Qual a sua profissão dos sonhos?</h1>
 
-  <div class="options-container">
-    <div class="option" id="cineasta">Cineasta</div>
-    <div class="option" id="advogada">Advogada</div>
-  </div>
+  <div class="option" id="cineasta">Cineasta</div>
+  <div class="option" id="advogada">Advogada</div>
 
   <div id="extra-option">Nenhuma das opções, queria ganhar dinheiro tirando sonecas</div>
   <div id="final-message">Eu sabia, sua dorminhoca.</div>
 
   <script>
     function moveSafely(element) {
+      const padding = 20;
       const elemWidth = element.offsetWidth;
       const elemHeight = element.offsetHeight;
-      const padding = 20;
-
       const maxX = window.innerWidth - elemWidth - padding;
       const maxY = window.innerHeight - elemHeight - padding;
 
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
 
-      element.style.left = `${x}px`;
-      element.style.top = `${y}px`;
+      element.style.left = `${randomX}px`;
+      element.style.top = `${randomY}px`;
     }
 
     const cineasta = document.getElementById('cineasta');
